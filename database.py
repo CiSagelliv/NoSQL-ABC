@@ -8,3 +8,18 @@ def insertar(**kwargs):
     db = get_db()
     resultado = db.rates.insert(kwargs)
     return resultado.inserted_id
+
+"""
+    updateCollecion recibe como argumentos el id de la base de datos y actCampos, dentro del método actualiza los campos del diccionario 
+    sin contar el id de los datos
+"""
+
+def update(id, **actCampos):
+    db = get_db()
+    resultado = db.rates.update_one(
+        {
+           "_id":id          
+        }, {
+           '$set': actCampos
+        })
+    return resultado.modified_count
