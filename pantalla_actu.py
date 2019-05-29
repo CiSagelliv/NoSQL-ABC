@@ -37,6 +37,10 @@ class App(QWidget):
         self.tableWidget.setHorizontalHeaderLabels(["_id","country","year","sex","age","suicides_no","population","suicides_per_100k","country_year","HDI_for_year","gdp_for_year","gdp_per_capita","generation"])
         self.tableWidget.move(0,0)
 
+"""
+
+        Aún no sé pa' que sirve esto :c
+
         self.tableWidget.doubleClicked.connect(self.on_click)
 
     @pyqtSlot()
@@ -44,6 +48,8 @@ class App(QWidget):
         print("\n")
         for currentQTableWidgetItem in self.tableWidget.selectedItems():
             print(currentQTableWidgetItem.row(), currentQTableWidgetItem.column(), currentQTableWidgetItem.text())
+
+"""
 
 
 if __name__ == '__main__':
