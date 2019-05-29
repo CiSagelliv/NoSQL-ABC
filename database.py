@@ -23,3 +23,11 @@ def update(id, **actCampos):
            '$set': actCampos
         })
     return resultado.modified_count
+
+
+#Método de eliminar inicio de la implementación
+def delete(id):
+    db = get_db()
+    resultado = db.rates.delete_one({"_id":id})
+    return resultado.deleted_count;
+
