@@ -1,59 +1,57 @@
+"""   
+    Corrección de interfaz xD perdón chicos
 """
-  Interfaz gráfica para actualización de datos 
-"""
+
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QTableWidget, QAction, QVBoxLayout
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import (QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox)
+from PyQt5.QtCore import (pyqtSlot, pyqtSignal, Qt)
 
-class App(QWidget):
-
+class updateWindow(QDialog):
     def __init__(self):
         super().__init__()
-        self.title = "Actualizar datos"
-        self.left = 0
-        self.top = 0
-        self.width = 550
-        self.height = 570
+
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
 
-        self.createTable()
+        self.createWindow()
 
-        self.layout = QVBoxLayout()
-        self.layout.addWidget(self.tableWidget) 
-        self.setLayout(self.layout) 
+        self.setGeometry(300,0,550,570)
+        self.setWindowTitle("Actualización de datos")
+        self. show()
 
-        self.show()
+    def createWindow(self):
 
-    def createTable(self):
-        #Creamos la tabla
-        self.tableWidget = QTableWidget()
-        self.tableWidget.setRowCount(0)
-        self.tableWidget.setColumnCount(13)
-        self.tableWidget.setHorizontalHeaderLabels(["_id","country","year","sex","age","suicides_no","population","suicides_per_100k","country_year","HDI_for_year","gdp_for_year","gdp_per_capita","generation"])
-        self.tableWidget.move(0,0)
+        lb_country = QLabel("Country")
+        lb_year = QLabel("Year")
+        lb_sex = QLabel("Sex")
+        lb_age = QLabel("Age")
+        lb_suicides_no = QLabel("Suicides_no")
+        lb_population = QLabel("Population")
+        lb_suicides_per_100k = QLabel("Suicides_per_100k")
+        lb_country_year = QLabel("Country_year")
+        lb_HDI_for_year = QLabel("HDI_for_year")
+        lb_gdp_for_year = QLabel("gdp_for_year")
+        lb_gdp_per_capita = QLabel("Cgdp_per_capita")
+        lb_generation = QLabel("Generation")
 
-"""
-
-        Aún no sé pa' que sirve esto :c
-
-        self.tableWidget.doubleClicked.connect(self.on_click)
-
-    @pyqtSlot()
-    def on_click(self):
-        print("\n")
-        for currentQTableWidgetItem in self.tableWidget.selectedItems():
-            print(currentQTableWidgetItem.row(), currentQTableWidgetItem.column(), currentQTableWidgetItem.text())
-
-"""
-
+        txt_country = QLineEdit(self)
+        txt_year = QLineEdit(self)
+        txt_sex = QLineEdit(self)
+        txt_age = QLineEdit(self)
+        txt_suicides_no = QLineEdit(self)
+        txt_population = QLineEdit(self)
+        txt_suicides_per_100k = QLineEdit(self)
+        txt_country_year = QLineEdit(self)
+        txt_HDI_for_year = QLineEdit(self)
+        txt_gdp_for_year = QLineEdit(self)
+        txt_gdp_per_capita = QLineEdit(self)
+        txt_generation = QLineEdit(self)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
+    ex = updateWindow()
+    sys.exit(app.exec())
+
+
 
