@@ -110,23 +110,38 @@ class updateWindow(QDialog):
 
     def validate(self) -> bool:
         if not (self.txt_country.text()
-            or self.txt_year.text()
-            or self.txt_sex.text()
-            or self.txt_age.text()
-            or self.txt_suicides_no.text()
-            or self.txt_population.text()
-            or self.txt_suicides_per_100k.text()
-            or self.txt_country_year.text()
-            or self.txt_HDI_for_year.text()
-            or self.txt_gdp_for_year.text()
-            or self.txt_gdp_per_capita.text()
-            or self.txt_generation.text()):
+                and self.txt_year.text()
+                and self.txt_sex.text()
+                and self.txt_age.text()
+                and self.txt_suicides_no.text()
+                and self.txt_population.text()
+                and self.txt_suicides_per_100k.text()
+                and self.txt_country_year.text()
+                and self.txt_HDI_for_year.text()
+                and self.txt_gdp_for_year.text()
+                and self.txt_gdp_per_capita.text()
+                and self.txt_generation.text()):
             mensaje_validar = QMessageBox()
             mensaje_validar.setText("No se llenaron todos los campos")
             mensaje_validar.exec_()
             return False
-        # Validar valores
+        if (is_number(self.txt_year.text())
+            and is_number(self.txt_suicides_no.text())
+            and is_number(self.txt_population.text())
+            and is_number(self.txt_gdp_per_capita.text())):
+            return True
+        else:
+            mensaje_validar = QMessageBox()
+            mensaje_validar.setText("Ingrese valores válidos")
+            mensaje_validar.exec_()
+            return False
+
+def is_number(s):
+    try:
+        float(s)
         return True
+    except ValueError:
+        return False
 
 
 if __name__ == '__main__':

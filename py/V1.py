@@ -1,11 +1,12 @@
-import database as db
-from Ventana1 import *
 import imags_rc
-from pymongo import MongoClient
 import sys
 from PyQt5.QtWidgets import QWidget, QTableWidget,QTableWidgetItem
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from pymongo import MongoClient
+import database as db
+from pantalla_insertar import insertWindow
+from Ventana1 import *
 
 
 class Ui_MainWindow(object):
@@ -17,7 +18,6 @@ class Ui_MainWindow(object):
 
         self.ventana.show()
 
-    
     def obtener(self):
         a = db.findAll()
 

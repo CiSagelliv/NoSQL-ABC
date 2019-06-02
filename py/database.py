@@ -12,7 +12,6 @@ def getDB():
 def insert(**kwargs):
     db = getDB()
     resultado = db.rates.insert_one(kwargs)
-    return resultado.inserted_count
 
 """
     updateCollecion recibe como argumentos el id de la base de datos y actCampos, dentro del método actualiza los campos del diccionario 
