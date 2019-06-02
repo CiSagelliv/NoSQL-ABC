@@ -14,8 +14,11 @@ from Ventana1 import *
 
 class Ui_MainWindow(object):
 
-    def abrir(self,i):
-            ventana = updateWindow().exec_()
+    def abrir_modificar(self,i):
+        ventana = updateWindow().exec_()
+
+    def abrir_insertar(self):
+        ventana = insertWindow().exec_()
 
     def obtener(self):
         a = db.findAll().limit(50)
@@ -137,8 +140,9 @@ class Ui_MainWindow(object):
         self.btinsertar.setIcon(icon3)
         self.btinsertar.setIconSize(QtCore.QSize(50, 50))
         self.btinsertar.setObjectName("btinsertar")
+        self.btinsertar.clicked.connect(self.abrir_insertar)
         
-        self.btmodificar.clicked.connect(self.abrir)
+        self.btmodificar.clicked.connect(self.abrir_modificar)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(440, 0, 550, 41))
         self.label.setObjectName("label")
