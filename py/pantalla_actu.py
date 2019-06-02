@@ -3,8 +3,9 @@
 """
 
 import sys
-from PyQt5.QtWidgets import (QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox, QGridLayout)
+from PyQt5.QtWidgets import (QVBoxLayout, QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox, QGridLayout)
 from PyQt5.QtCore import (pyqtSlot, pyqtSignal, Qt)
+
 
 class updateWindow(QDialog):
     def __init__(self):
@@ -14,9 +15,11 @@ class updateWindow(QDialog):
 
     def initUI(self):
 
-        self.createWindow()
+        self.setLayout(QVBoxLayout())
 
-        self.setGeometry(300,0,550,570)
+        self.layout().addLayout(self.createWindow())
+        self.layout().addWidget(self.updateButton())
+        self.setGeometry(300, 0, 450, 0)
         self.setWindowTitle("Actualización de datos")
         self.show()
 
@@ -75,12 +78,24 @@ class updateWindow(QDialog):
         grid.addWidget(txt_gdp_per_capita, 10, 1)
         grid.addWidget(txt_generation, 11, 1)
 
-        self.setLayout(grid)
+        return grid
+
+    def updateButton(self):
+        buttonUpdate = QPushButton("Update", self)
+        buttonUpdate.clicked.connect(self.updateData)
+        return buttonUpdate
+
+    def updateData(self):
+        pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = updateWindow()
     sys.exit(app.exec())
+
+
+
+
 
 
 
