@@ -14,10 +14,12 @@ class Ui_MainWindow(object):
         self.ventana=QtWidgets.QMainWindow()
         self.ui=ventana2()
         self.ui.setupUi(self.ventana)
-
         self.ventana.show()
 
-    
+    def obtenerF(self):
+    	row = self.tableWidget.currentRow()
+    	print(row)
+
     def obtener(self):
         host = "localhost"
         puerto = "27017"
@@ -148,6 +150,7 @@ class Ui_MainWindow(object):
         anio=1988
         
         self.btinsertar.clicked.connect(self.abrir)
+        self.bteliminar.clicked.connect(self.obtenerF)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(440, 0, 550, 41))
         self.label.setObjectName("label")
