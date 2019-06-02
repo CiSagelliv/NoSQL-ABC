@@ -3,7 +3,7 @@ from Ventana1 import *
 from pantalla_actu import *
 import imags_rc
 import sys
-from PyQt5.QtWidgets import QWidget, QTableWidget,QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidget,QTableWidgetItem,QMessageBox
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from pymongo import MongoClient
@@ -14,11 +14,47 @@ from Ventana1 import *
 
 class Ui_MainWindow(object):
 
+	
     def abrir_modificar(self,i):
         ventana = updateWindow().exec_()
 
     def abrir_insertar(self):
         ventana = insertWindow().exec_()
+
+    def eliminar(self):
+    	row = self.tableWidget.currentRow()
+    	if row>-1:
+    		msg=QMessageBox()
+    		msg.setIcon(QMessageBox.Question)
+    		msg.setText("Desea eliminar este registro")
+    		msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
+    		reply=msg.exec_()
+    		
+    		if reply == QMessageBox.Yes:
+    			pais = (self.tableWidget.item(row, 0).text())
+    			
+    			sexo = (self.tableWidget.item(row, 2).text())
+    			edad = (self.tableWidget.item(row, 3).text())
+    			
+    			
+    			
+    			gene = (self.tableWidget.item(row, 8).text())
+    			
+    			
+    			num=db.delete(pais,sexo,edad,gene)
+
+    			if num>0:
+    				mensaje=QMessageBox()
+    				mensaje.setText("Registro eliminado")
+    				mensaje.exec_()
+    				self.obtener()
+
+    	else:
+    		mensaje=QMessageBox()
+    		mensaje.setText("Selecciona una fila de la tabla")
+    		mensaje.exec_()
+    		
+
 
     def obtener(self):
         a = db.findAll().limit(50)
@@ -125,6 +161,7 @@ class Ui_MainWindow(object):
         self.bteliminar.setIcon(icon2)
         self.bteliminar.setIconSize(QtCore.QSize(50, 50))
         self.bteliminar.setObjectName("bteliminar")
+        self.bteliminar.clicked.connect(self.eliminar)
         self.btinsertar = QtWidgets.QPushButton(self.centralwidget)
         self.btinsertar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btinsertar.setGeometry(QtCore.QRect(10, 350, 231, 61))

@@ -30,10 +30,15 @@ def update(id, **actCampos):
 
 
 # Método de eliminar inicio de la implementación
-def delete(id):
+def delete(country,sex,age,generation):
     db = getDB()
-    resultado = db.rates.delete_one({"_id":id})
+    resultado = db.rates.delete_one({"country":country,"sex":sex,"age":age,"generation":generation})
     return resultado.deleted_count;
+#No me funciono este metodo si alguien le quiere sacar provecho adelante
+"""def selectOne(country,sex,age,generation):
+    db=getDB()
+    reg=db.rates.find_one({"country":country,"sex":sex,"age":age,"generation":generation},{"_id":1})
+    return reg"""
 
 def findAll():
     db = getDB()
