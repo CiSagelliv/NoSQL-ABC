@@ -3,7 +3,7 @@
 """
 
 import sys
-from PyQt5.QtWidgets import (QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox)
+from PyQt5.QtWidgets import (QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox, QGridLayout)
 from PyQt5.QtCore import (pyqtSlot, pyqtSignal, Qt)
 
 class updateWindow(QDialog):
@@ -18,9 +18,10 @@ class updateWindow(QDialog):
 
         self.setGeometry(300,0,550,570)
         self.setWindowTitle("Actualización de datos")
-        self. show()
+        self.show()
 
     def createWindow(self):
+        grid = QGridLayout()
 
         lb_country = QLabel("Country")
         lb_year = QLabel("Year")
@@ -47,6 +48,34 @@ class updateWindow(QDialog):
         txt_gdp_for_year = QLineEdit(self)
         txt_gdp_per_capita = QLineEdit(self)
         txt_generation = QLineEdit(self)
+
+        grid.addWidget(lb_country, 0, 0)
+        grid.addWidget(lb_year, 1, 0)
+        grid.addWidget(lb_sex, 2, 0)
+        grid.addWidget(lb_age, 3, 0)
+        grid.addWidget(lb_suicides_no, 4, 0)
+        grid.addWidget(lb_population, 5, 0)
+        grid.addWidget(lb_suicides_per_100k, 6, 0)
+        grid.addWidget(lb_country_year, 7, 0)
+        grid.addWidget(lb_HDI_for_year, 8, 0)
+        grid.addWidget(lb_gdp_for_year, 9, 0)
+        grid.addWidget(lb_gdp_per_capita, 10, 0)
+        grid.addWidget(lb_generation, 11, 0)
+
+        grid.addWidget(txt_country, 0, 1)
+        grid.addWidget(txt_year, 1, 1)
+        grid.addWidget(txt_sex, 2, 1)
+        grid.addWidget(txt_age, 3, 1)
+        grid.addWidget(txt_suicides_no, 4, 1)
+        grid.addWidget(txt_population, 5, 1)
+        grid.addWidget(txt_suicides_per_100k, 6, 1)
+        grid.addWidget(txt_country_year, 7, 1)
+        grid.addWidget(txt_HDI_for_year, 8, 1)
+        grid.addWidget(txt_gdp_for_year, 9, 1)
+        grid.addWidget(txt_gdp_per_capita, 10, 1)
+        grid.addWidget(txt_generation, 11, 1)
+
+        self.setLayout(grid)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
