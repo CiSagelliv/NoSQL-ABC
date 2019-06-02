@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (QVBoxLayout, QApplication, QDialog, QLabel, QLineEd
 from PyQt5.QtCore import (pyqtSlot, pyqtSignal, Qt)
 
 
-class updateWindow(QDialog):
+class insertWindow(QDialog):
     def __init__(self):
         super().__init__()
 
@@ -18,9 +18,9 @@ class updateWindow(QDialog):
         self.setLayout(QVBoxLayout())
 
         self.layout().addLayout(self.createWindow())
-        self.layout().addWidget(self.updateButton())
+        self.layout().addWidget(self.insertButton())
         self.setGeometry(300, 0, 450, 0)
-        self.setWindowTitle("Actualización de datos")
+        self.setWindowTitle("Inserción de datos")
         self.show()
 
     def createWindow(self):
@@ -80,22 +80,15 @@ class updateWindow(QDialog):
 
         return grid
 
-    def updateButton(self):
-        buttonUpdate = QPushButton("Update", self)
-        buttonUpdate.clicked.connect(self.updateData)
-        return buttonUpdate
+    def insertButton(self):
+        buttonInsert = QPushButton("Insertar", self)
+        buttonInsert.clicked.connect(self.insertData)
+        return buttonInsert
 
-    def updateData(self):
+    def insertData(self):
         pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = updateWindow()
+    ex = insertWindow()
     sys.exit(app.exec())
-
-
-
-
-
-
-
