@@ -3,6 +3,7 @@
 """
 
 import sys
+import database as db
 from PyQt5.QtWidgets import (QVBoxLayout, QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox, QGridLayout)
 from PyQt5.QtCore import (pyqtSlot, pyqtSignal, Qt)
 
@@ -86,7 +87,49 @@ class insertWindow(QDialog):
         return buttonInsert
 
     def insertData(self):
-        pass
+        if self.validate():
+            documento = {
+                "country": self.txt_country.text(),
+                "year": int(self.txt_year.text()),
+                "sex": self.txt_sex.text(),
+                "age": self.txt_age.text(),
+                "suicides_no": int(self.txt_suicides_no.text()),
+                "population": int(self.txt_population.text()),
+                "suicides_per_100k": float(self.txt_suicides_per_100k.text()),
+                "country_year": self.txt_country_year.text(),
+                "HDI_for_year": float(self.txt_HDI_for_year.text()),
+                "gdp_for_year": self.txt_gdp_for_year.text(),
+                "gdp_per_capita": int(self.txt_gdp_per_capita.text()),
+                "generation": self.txt_generation.text(),
+            }
+            db.insert(**documento)
+            mensaje_insercion = QMessageBox()
+            mensaje_insercion.setText("Se insertó correctamente en la base de datos")
+            mensaje_insercion.exec_()
+
+    def validate(self) -> bool:
+        if not (self.txt_country.text()
+            or self.txt_year.text()
+            or self.txt_sex.text()
+            or self.txt_age.text()
+            or self.txt_suicides_no.text()
+            or self.txt_population.text()
+            or self.txt_suicides_per_100k.text()
+            or self.txt_country_year.text()
+            or self.txt_HDI_for_year.text()
+            or self.txt_gdp_for_year.text()
+            or self.txt_gdp_per_capita.text()
+            or self.txt_generation.text()):
+            mensaje_validar = QMessageBox()
+            mensaje_validar.setText("No se llenaron todos los campos")
+            mensaje_validar.exec_()
+            return False
+        # Validar valores
+        # "year"
+        # "suicides_no"
+        # "population"
+        # "gdp_per_capita"
+        return True
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
