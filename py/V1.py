@@ -1,4 +1,4 @@
-
+import database as db
 from Ventana1 import *
 import imags_rc
 from pymongo import MongoClient
@@ -21,17 +21,9 @@ class Ui_MainWindow(object):
     	print(row)
 
     def obtener(self):
-        host = "localhost"
-        puerto = "27017"
-        usuario = "parzibyte"
-        palabra_secreta = "hunter2"
-        base_de_datos = "suicides"
-        cliente = MongoClient("mongodb://{}:{}".format(host, puerto))
-        base_de_datos1 = cliente[base_de_datos]
-        a=base_de_datos1.rates.find({},{"_id":0,"country":1,"year":1,"sex":1,"age":1,"suicides_no":1,"population":1,"suicides_per_100k":1,"gdp_per_capita":1,"generation":1}).limit(20)
-        i=0
+        a = db.findAll()
 
-        for rates in a:
+        for i, rates in enumerate(a):
             self.tableWidget.setItem(i,0, QTableWidgetItem(rates["country"]))
             self.tableWidget.setItem(i,1, QTableWidgetItem(str(rates["year"])))
             self.tableWidget.setItem(i,2, QTableWidgetItem(rates["sex"]))
@@ -41,8 +33,6 @@ class Ui_MainWindow(object):
             self.tableWidget.setItem(i,6, QTableWidgetItem(str(rates["suicides_per_100k"])))
             self.tableWidget.setItem(i,7, QTableWidgetItem(str(rates["gdp_per_capita"])))
             self.tableWidget.setItem(i,8, QTableWidgetItem(rates["generation"]))
-
-            i=i+1
         """self.tableWidget.setRowCount(0)
         for row_number, row_data in enumerate(a):
             self.tableWidget.insertRow(row_number)
