@@ -1,3 +1,6 @@
+import database as db
+from Ventana1 import *
+from pantalla_actu import *
 import imags_rc
 import sys
 from PyQt5.QtWidgets import QWidget, QTableWidget,QTableWidgetItem
@@ -5,21 +8,17 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from pymongo import MongoClient
 import database as db
-from pantalla_insertar import insertWindow
+from pantalla_insertar import *
 from Ventana1 import *
 
 
 class Ui_MainWindow(object):
 
-    def abrir(self):
-        self.ventana=QtWidgets.QMainWindow()
-        self.ui=ventana2()
-        self.ui.setupUi(self.ventana)
-
-        self.ventana.show()
+    def abrir(self,i):
+            ventana = updateWindow().exec_()
 
     def obtener(self):
-        a = db.findAll()
+        a = db.findAll().limit(50)
 
         for i, rates in enumerate(a):
             self.tableWidget.setItem(i,0, QTableWidgetItem(rates["country"]))
@@ -81,7 +80,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.btconsultar.setFont(font)
-        self.btconsultar.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.btconsultar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btconsultar.setStyleSheet("background-color: rgb(0, 107, 189);")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("buscar.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -94,6 +93,7 @@ class Ui_MainWindow(object):
         self.btconsultar.setFlat(False)
         self.btconsultar.setObjectName("btconsultar")
         self.btmodificar = QtWidgets.QPushButton(self.centralwidget)
+        self.btmodificar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btmodificar.setGeometry(QtCore.QRect(10, 170, 231, 61))
         font = QtGui.QFont()
         font.setFamily("Palatino Linotype")
@@ -108,6 +108,7 @@ class Ui_MainWindow(object):
         self.btmodificar.setIconSize(QtCore.QSize(50, 50))
         self.btmodificar.setObjectName("btmodificar")
         self.bteliminar = QtWidgets.QPushButton(self.centralwidget)
+        self.bteliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bteliminar.setGeometry(QtCore.QRect(10, 260, 231, 61))
         font = QtGui.QFont()
         font.setFamily("Palatino Linotype")
@@ -122,6 +123,7 @@ class Ui_MainWindow(object):
         self.bteliminar.setIconSize(QtCore.QSize(50, 50))
         self.bteliminar.setObjectName("bteliminar")
         self.btinsertar = QtWidgets.QPushButton(self.centralwidget)
+        self.btinsertar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btinsertar.setGeometry(QtCore.QRect(10, 350, 231, 61))
         font = QtGui.QFont()
         font.setFamily("Palatino Linotype")
@@ -135,23 +137,34 @@ class Ui_MainWindow(object):
         self.btinsertar.setIcon(icon3)
         self.btinsertar.setIconSize(QtCore.QSize(50, 50))
         self.btinsertar.setObjectName("btinsertar")
-        anio=1988
         
-        self.btinsertar.clicked.connect(self.abrir)
+        self.btmodificar.clicked.connect(self.abrir)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(440, 0, 550, 41))
         self.label.setObjectName("label")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(250, 40, 926, 477))
         self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.tableWidget.setRowCount(20)
+        self.tableWidget.setRowCount(50)
         self.tableWidget.setColumnCount(9)
         self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setFont(font)
+
+        self.tableWidget.setStyleSheet("background-color:rgb(255, 255, 255);\n"
+        "gridline-color: rgb(0, 107, 189);\n"
+        "selection-background-color: rgb(85, 170, 255);\n"
+        "border-color: rgb(255, 0, 4);")
+
+        self.tableWidget.setGridStyle(QtCore.Qt.DashDotLine)
+        stylesheet = "::section{Background-color:rgb(0, 107, 189);border-radius:14px;}"
+        self.tableWidget.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget.verticalHeader().setStyleSheet(stylesheet)
+
+
         self.tableWidget.setHorizontalHeaderLabels(("Pais","Año","Sexo","Edad","No. Suicidios","Poblacion","suicides_per_100k","gdp_per_capita","generation"))
+
         MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        
         self.obtener()
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -170,7 +183,7 @@ class Ui_MainWindow(object):
      
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
