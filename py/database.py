@@ -60,3 +60,20 @@ def findAll():
         "gdp_per_capita":1,
         "generation":1,
     }).limit(20)
+
+def find(hol, hol1):
+    db = getDB()
+    return db.rates.find({hol:hol1},{
+        "_id":0,
+        "country":1,
+        "year":1,
+        "sex":1,
+        "age":1,
+        "suicides_no":1,
+        "population":1,
+        "suicides_per_100k":1,
+        "country_year":1,
+        "gdp_per_year":1,
+        "gdp_per_capita":1,
+        "generation":1,
+    }).limit(20)
