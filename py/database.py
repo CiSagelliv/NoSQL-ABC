@@ -1,12 +1,13 @@
 from pymongo import MongoClient
 
 def getDB():
-    host = "localhost"
-    puerto = "27017"
-    usuario = "parzibyte"
-    palabra_secreta = "hunter2"
+    host = "192.168.137.78"
+    replica = "replica-set"
+    port = 27018
+    user = "User1"
+    pwd = "User1"
     base_de_datos = "suicides"
-    cliente = MongoClient("mongodb://{}:{}".format(host, puerto))
+    cliente = MongoClient(host=host, replicaSet=replica, port=port, username=user, password=pwd)
     return cliente[base_de_datos]
 
 def insert(**kwargs):
