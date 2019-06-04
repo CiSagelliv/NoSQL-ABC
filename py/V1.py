@@ -9,6 +9,7 @@ from PyQt5.QtGui import *
 from pymongo import MongoClient
 import database as db
 from pantalla_insertar import *
+from pantalla_consultar import *
 from Ventana1 import *
 
 
@@ -19,6 +20,9 @@ class Ui_MainWindow(object):
 
     def abrir_insertar(self):
         ventana = insertWindow().exec_()
+
+    def abrir_consultar(self):
+        ventana = consultarWidget().exec_()
 
     def eliminar(self):
     	row = self.tableWidget.currentRow()
@@ -119,6 +123,7 @@ class Ui_MainWindow(object):
         self.btmodificar = QtWidgets.QPushButton(self.centralwidget)
         self.btmodificar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btmodificar.setGeometry(QtCore.QRect(10, 170, 231, 61))
+        self.btmodificar.clicked.connect(self.abrir_consultar)
         font = QtGui.QFont()
         font.setFamily("Palatino Linotype")
         font.setPointSize(10)

@@ -198,10 +198,6 @@ class consultarWidget(QDialog):
         except Exception as e:
             pass
         
-        
-        
-        
-
     def datosTabla(self):
         a = db.findAll().limit(50)
 
@@ -215,11 +211,6 @@ class consultarWidget(QDialog):
             self.tabla.setItem(i,6, QTableWidgetItem(str(rates["suicides_per_100k"])))
             self.tabla.setItem(i,7, QTableWidgetItem(str(rates["gdp_per_capita"])))
             self.tabla.setItem(i,8, QTableWidgetItem(rates["generation"]))
-            
-            
-
-
-        
 
         row = 0
         for endian in a:
@@ -285,9 +276,6 @@ class consultarWidget(QDialog):
             self.tableWidget.setItem(i,6, QTableWidgetItem(str(rates["suicides_per_100k"])))
             self.tableWidget.setItem(i,7, QTableWidgetItem(str(rates["gdp_per_capita"])))
             self.tableWidget.setItem(i,8, QTableWidgetItem(rates["generation"]))
-
-
-
 
 
 if __name__ == "__main__":
