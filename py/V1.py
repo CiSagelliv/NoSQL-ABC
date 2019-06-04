@@ -14,7 +14,6 @@ from Ventana1 import *
 
 class Ui_MainWindow(object):
 
-	
     def abrir_modificar(self,i):
         ventana = updateWindow().exec_()
 
@@ -23,7 +22,7 @@ class Ui_MainWindow(object):
 
     def eliminar(self):
     	row = self.tableWidget.currentRow()
-    	if row>-1:
+    	if row >= 0:
     		msg = QMessageBox()
     		msg.setIcon(QMessageBox.Question)
     		msg.setText("Desea eliminar este registro")
@@ -47,22 +46,20 @@ class Ui_MainWindow(object):
     		mensaje=QMessageBox()
     		mensaje.setText("Selecciona una fila de la tabla")
     		mensaje.exec_()
-    		
-
 
     def obtener(self):
         a = db.findAll().limit(50)
 
         for i, rates in enumerate(a):
-            self.tableWidget.setItem(i,0, QTableWidgetItem(rates["country"]))
-            self.tableWidget.setItem(i,1, QTableWidgetItem(str(rates["year"])))
-            self.tableWidget.setItem(i,2, QTableWidgetItem(rates["sex"]))
-            self.tableWidget.setItem(i,3, QTableWidgetItem(rates["age"]))
-            self.tableWidget.setItem(i,4, QTableWidgetItem(str(rates["suicides_no"])))
-            self.tableWidget.setItem(i,5, QTableWidgetItem(str(rates["population"])))
-            self.tableWidget.setItem(i,6, QTableWidgetItem(str(rates["suicides_per_100k"])))
-            self.tableWidget.setItem(i,7, QTableWidgetItem(str(rates["gdp_per_capita"])))
-            self.tableWidget.setItem(i,8, QTableWidgetItem(rates["generation"]))
+            self.tableWidget.setItem(i, 0, QTableWidgetItem(rates["country"]))
+            self.tableWidget.setItem(i, 1, QTableWidgetItem(str(rates["year"])))
+            self.tableWidget.setItem(i, 2, QTableWidgetItem(rates["sex"]))
+            self.tableWidget.setItem(i, 3, QTableWidgetItem(rates["age"]))
+            self.tableWidget.setItem(i, 4, QTableWidgetItem(str(rates["suicides_no"])))
+            self.tableWidget.setItem(i, 5, QTableWidgetItem(str(rates["population"])))
+            self.tableWidget.setItem(i, 6, QTableWidgetItem(str(rates["suicides_per_100k"])))
+            self.tableWidget.setItem(i, 7, QTableWidgetItem(str(rates["gdp_per_capita"])))
+            self.tableWidget.setItem(i, 8, QTableWidgetItem(rates["generation"]))
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
