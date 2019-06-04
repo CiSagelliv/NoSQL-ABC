@@ -13,16 +13,14 @@ def insert(**kwargs):
     db = getDB()
     resultado = db.rates.insert_one(kwargs)
 
+def update(country_year, **actCampos):
 """
-    recibe como argumentos el id de la base de datos y actCampos,
+    Recibe como argumentos el id de la base de datos y actCampos,
     dentro del método actualiza los campos del diccionario 
     sin contar el id de los datos
 """
-
-def update(country_year, **actCampos):
     db = getDB()
-    resultado = db.rates.update_one(
-        {
+    resultado = db.rates.update_one({
            "country_year":country_year          
         }, {
            '$set': actCampos
@@ -31,20 +29,17 @@ def update(country_year, **actCampos):
 
 def buscaUpdate(country_year):
     db = getDB()
-    print("Si entre a la bd :V")
     result = db.rates.find_one({"country_year":country_year})
-    print("Si saque el result", result)
     return result
 
-
-# Método de eliminar inicio de la implementación
+# Método de eliminar
 def delete(country,sex,age,generation):
     db = getDB()
     deleteFilter = {
-        "country":country,
-        "sex":sex,
-        "age":age,
-        "generation":generation,
+        "country": country,
+        "sex": sex,
+        "age": age,
+        "generation": generation,
     }
     resultado = db.rates.delete_one(deleteFilter)
     return resultado.deleted_count;

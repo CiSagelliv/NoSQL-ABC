@@ -24,26 +24,20 @@ class Ui_MainWindow(object):
     def eliminar(self):
     	row = self.tableWidget.currentRow()
     	if row>-1:
-    		msg=QMessageBox()
+    		msg = QMessageBox()
     		msg.setIcon(QMessageBox.Question)
     		msg.setText("Desea eliminar este registro")
     		msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
-    		reply=msg.exec_()
+    		reply = msg.exec_()
     		
     		if reply == QMessageBox.Yes:
     			pais = (self.tableWidget.item(row, 0).text())
-    			
     			sexo = (self.tableWidget.item(row, 2).text())
     			edad = (self.tableWidget.item(row, 3).text())
-    			
-    			
-    			
     			gene = (self.tableWidget.item(row, 8).text())
-    			
-    			
-    			num=db.delete(pais,sexo,edad,gene)
+    			num = db.delete(pais,sexo,edad,gene)
 
-    			if num>0:
+    			if num > 0:
     				mensaje=QMessageBox()
     				mensaje.setText("Registro eliminado")
     				mensaje.exec_()
@@ -69,12 +63,6 @@ class Ui_MainWindow(object):
             self.tableWidget.setItem(i,6, QTableWidgetItem(str(rates["suicides_per_100k"])))
             self.tableWidget.setItem(i,7, QTableWidgetItem(str(rates["gdp_per_capita"])))
             self.tableWidget.setItem(i,8, QTableWidgetItem(rates["generation"]))
-        """self.tableWidget.setRowCount(0)
-        for row_number, row_data in enumerate(a):
-            self.tableWidget.insertRow(row_number)
-            for column_number, data in enumerate(row_data):
-                self.tableWidget.setItem(row_number, column_number, QtWidgets.QTableWidgetItem(str(data)))
-"""
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -201,7 +189,6 @@ class Ui_MainWindow(object):
         self.tableWidget.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget.verticalHeader().setStyleSheet(stylesheet)
 
-
         self.tableWidget.setHorizontalHeaderLabels(("Pais","Año","Sexo","Edad","No. Suicidios","Poblacion","suicides_per_100k","gdp_per_capita","generation"))
 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -220,9 +207,6 @@ class Ui_MainWindow(object):
         self.btinsertar.setText(_translate("MainWindow", "Insertar Datos"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; text-decoration: underline; color:#2b2828;\">MENU</span></p></body></html>"))
         
-            
-     
-
 
 if __name__ == '__main__':
     import sys
@@ -232,4 +216,3 @@ if __name__ == '__main__':
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-
