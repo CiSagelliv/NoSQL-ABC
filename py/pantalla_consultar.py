@@ -70,7 +70,7 @@ class consultarWidget(QDialog):
         botonMostrarDatos.move(20, 20)
 
         botonBuscarDatos = QPushButton("Buscar", self)
-       # botonBuscarDatos.clicked.connect(self.Buscar)
+        botonBuscarDatos.clicked.connect(self.Buscar)
         botonBuscarDatos.setFixedWidth(50)
         botonBuscarDatos.move(970, 20)
 
