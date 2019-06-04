@@ -14,11 +14,11 @@ def insert(**kwargs):
     resultado = db.rates.insert_one(kwargs)
 
 def update(country_year, **actCampos):
-"""
-    Recibe como argumentos el id de la base de datos y actCampos,
-    dentro del método actualiza los campos del diccionario 
-    sin contar el id de los datos
-"""
+    """
+        Recibe como argumentos el id de la base de datos y actCampos,
+        dentro del método actualiza los campos del diccionario 
+        sin contar el id de los datos
+    """
     db = getDB()
     resultado = db.rates.update_one({
            "country_year":country_year          
