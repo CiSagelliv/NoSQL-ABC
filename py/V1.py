@@ -123,7 +123,7 @@ class Ui_MainWindow(object):
         self.btmodificar = QtWidgets.QPushButton(self.centralwidget)
         self.btmodificar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btmodificar.setGeometry(QtCore.QRect(10, 170, 231, 61))
-        self.btmodificar.clicked.connect(self.abrir_consultar)
+        
         font = QtGui.QFont()
         font.setFamily("Palatino Linotype")
         font.setPointSize(10)
@@ -167,9 +167,10 @@ class Ui_MainWindow(object):
         self.btinsertar.setIcon(icon3)
         self.btinsertar.setIconSize(QtCore.QSize(50, 50))
         self.btinsertar.setObjectName("btinsertar")
+        self.btmodificar.clicked.connect(self.abrir_modificar)
+        self.btconsultar.clicked.connect(self.abrir_consultar)
         self.btinsertar.clicked.connect(self.abrir_insertar)
         
-        self.btmodificar.clicked.connect(self.abrir_modificar)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(440, 0, 550, 41))
         self.label.setObjectName("label")

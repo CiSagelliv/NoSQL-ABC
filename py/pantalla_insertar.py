@@ -20,7 +20,7 @@ class insertWindow(QDialog):
 
         self.layout().addLayout(self.createWindow())
         self.layout().addWidget(self.insertButton())
-        self.setGeometry(300, 0, 450, 0)
+        self.setGeometry(300, 50, 450, 0)
         self.setWindowTitle("Inserción de datos")
         self.show()
 
