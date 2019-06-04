@@ -14,7 +14,8 @@ def insert(**kwargs):
     resultado = db.rates.insert_one(kwargs)
 
 """
-    updateCollecion recibe como argumentos el id de la base de datos y actCampos, dentro del método actualiza los campos del diccionario 
+    recibe como argumentos el id de la base de datos y actCampos,
+    dentro del método actualiza los campos del diccionario 
     sin contar el id de los datos
 """
 
@@ -39,13 +40,14 @@ def buscaUpdate(country_year):
 # Método de eliminar inicio de la implementación
 def delete(country,sex,age,generation):
     db = getDB()
-    resultado = db.rates.delete_one({"country":country,"sex":sex,"age":age,"generation":generation})
+    deleteFilter = {
+        "country":country,
+        "sex":sex,
+        "age":age,
+        "generation":generation,
+    }
+    resultado = db.rates.delete_one(deleteFilter)
     return resultado.deleted_count;
-#No me funciono este metodo si alguien le quiere sacar provecho adelante
-"""def selectOne(country,sex,age,generation):
-    db=getDB()
-    reg=db.rates.find_one({"country":country,"sex":sex,"age":age,"generation":generation},{"_id":1})
-    return reg"""
 
 def findAll():
     db = getDB()
