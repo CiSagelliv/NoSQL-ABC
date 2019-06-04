@@ -18,15 +18,22 @@ def insert(**kwargs):
     sin contar el id de los datos
 """
 
-def update(id, **actCampos):
+def update(country_year, **actCampos):
     db = getDB()
     resultado = db.rates.update_one(
         {
-           "_id":id          
+           "country_year":country_year          
         }, {
            '$set': actCampos
         })
     return resultado.modified_count
+
+def buscaUpdate(country_year):
+    db = getDB()
+    print("Si entre a la bd :V")
+    result = db.rates.find_one({"country_year":country_year})
+    print("Si saque el result", result)
+    return result
 
 
 # Método de eliminar inicio de la implementación
@@ -51,6 +58,8 @@ def findAll():
         "suicides_no":1,
         "population":1,
         "suicides_per_100k":1,
+        "country_year":1,
+        "gdp_per_year":1,
         "gdp_per_capita":1,
         "generation":1,
     }).limit(20)

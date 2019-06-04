@@ -4,7 +4,7 @@
 
 import sys
 import database as db
-from PyQt5.QtWidgets import (QVBoxLayout, QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox, QGridLayout)
+from PyQt5.QtWidgets import (QVBoxLayout, QApplication, QDialog, QLabel, QLineEdit, QTextEdit, QPushButton, QMessageBox, QGridLayout, QHBoxLayout, QTableWidgetItem)
 from PyQt5.QtCore import (pyqtSlot, pyqtSignal, Qt)
 
 
@@ -19,8 +19,8 @@ class updateWindow(QDialog):
         self.setLayout(QVBoxLayout())
 
         self.layout().addLayout(self.createWindow())
-        self.layout().addWidget(self.updateButton())
-        self.setGeometry(300, 0, 450, 0)
+        self.layout().addLayout(self.updateButton())
+        self.setGeometry(250, 50, 450, 0)
         self.setWindowTitle("Actualización de datos")
         self.show()
 
@@ -37,7 +37,7 @@ class updateWindow(QDialog):
         lb_country_year = QLabel("Country_year")
         lb_HDI_for_year = QLabel("HDI_for_year")
         lb_gdp_for_year = QLabel("gdp_for_year")
-        lb_gdp_per_capita = QLabel("Cgdp_per_capita")
+        lb_gdp_per_capita = QLabel("gdp_per_capita")
         lb_generation = QLabel("Generation")
 
         self.txt_country = QLineEdit(self)
@@ -82,9 +82,35 @@ class updateWindow(QDialog):
         return grid
 
     def updateButton(self):
+        lay = QHBoxLayout();
+
         buttonUpdate = QPushButton("Update", self)
         buttonUpdate.clicked.connect(self.updateData)
-        return buttonUpdate
+        buttonUp = QPushButton("Find",self)
+        buttonUp.clicked.connect(self.obtenerDatos)
+
+        lay.addWidget(buttonUpdate)
+        lay.addWidget(buttonUp)
+
+        return lay
+
+    def obtenerDatos(self):
+        b = self.txt_country_year.text()
+        rates = db.buscaUpdate(b)
+        print("")
+        self.txt_country.setText((rates["country"]))
+        self.txt_year.setText((str(rates["year"])))
+        self.txt_sex.setText((rates["sex"]))
+        self.txt_age.setText((rates["age"]))
+        self.txt_suicides_no.setText((str(rates["suicides_no"])))
+        self.txt_population.setText((str(rates["population"])))
+        self.txt_suicides_per_100k.setText((str(rates["suicides_per_100k"])))
+        self.txt_country_year.setText((rates["country_year"]))
+        self.txt_HDI_for_year.setText((rates["HDI_for_year"]))
+        self.txt_gdp_for_year.setText((str(rates["gdp_for_year"])))
+        self.txt_gdp_per_capita.setText((str(rates["gdp_per_capita"])))
+        self.txt_generation.setText((rates["generation"]))
+
 
     def updateData(self):
         if self.validate():
@@ -103,10 +129,10 @@ class updateWindow(QDialog):
                 "generation": self.txt_generation.text(),
             }
             # Identificar que identifica
-            # db.update(, **documento)
-            # mensaje_insercion = QMessageBox()
-            # mensaje_insercion.setText("Se insertó correctamente en la base de datos")
-            # mensaje_insercion.exec_()
+            db.update(**documento)
+            mensaje_insercion = QMessageBox()
+            mensaje_insercion.setText("Se actualizo correctamente en la base de datos")
+            mensaje_insercion.exec_()
 
     def validate(self) -> bool:
         if not (self.txt_country.text()
