@@ -98,6 +98,7 @@ class consultarWidget(QDialog):
         self.comboBox.addItem("suicides_no")
         self.comboBox.addItem("generation")
         self.comboBox.addItem("gdp_per_capita")
+        self.datosTabla()
 
 
 
@@ -150,16 +151,13 @@ class consultarWidget(QDialog):
             elif(item=="gdp_per_capita"):
                 b=int(textboxValue)
                 a = db.find(item,b).limit(50)
-            elif(item=="generation"):
-                b=int(textboxValue)
-                a = db.find(item,b).limit(50)
             elif(item=="age"):
                 print("ffgdfgfd")
                 b= {'$regex': textboxValue}
                 a = db.find(item,b).limit(50)
                 
             else:
-                a = db.find(item,textboxValue).limit(50)
+                a = db.find(item,{'$regex': textboxValue}).limit(50)
 
 
             for i, rates in enumerate (a):
